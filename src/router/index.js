@@ -1,12 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-const Login = () => import(/* webpackChunkName: "Login" */ "@/pages/Login/Login.vue")
+const Home = () => import(/* webpackChunkName: "Home" */ "@/pages/Home/Home.vue")
+const Dashboard = () => import(/* webpackChunkName: "Dashboard" */ '@/pages/Dashboard/Dashboard.vue')
+const sidebar = () => import(/* webpackChunkName: "Dashboard" */ '@/layout/Sidebar/Sidebar.vue')
 
 const routes = [
   {
     path: '/',
-    name: 'login-page',
-    component: Login
+    name: 'Home-page',
+    component: Home
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard-page',
+    component: Dashboard,
+    children: [
+      {
+        path: 'setting',
+        component: Home
+      }
+    ]
   }
 ]
 
