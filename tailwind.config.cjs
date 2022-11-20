@@ -18,7 +18,8 @@ module.exports = {
     },
     transitionProperty: {
       'width': 'width',
-      'margin': 'margin'
+      'margin': 'margin',
+      'position': 'position'
     },
   },
   plugins: [require('prettier-plugin-tailwindcss')],

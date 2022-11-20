@@ -11,10 +11,10 @@
       </div>
       <div>
         <input
-          type="text"
-          class="focus:outline-none"
-          name="username"
-          id="username"
+          :type="typeInput"
+          class="w-full focus:outline-none"
+          :name="name"
+          id="input-component"
           autocomplete="off"
           :placeholder="placeholder"
           @input="(e) => $emit('input', e)"
@@ -51,6 +51,14 @@ export default {
     isError: {
       type: Boolean,
       default: false,
+    },
+    name: {
+      type: String,
+      default: "username",
+    },
+    typeInput: {
+      type: String,
+      default: "",
     },
   },
   components: {

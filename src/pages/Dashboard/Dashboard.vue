@@ -4,21 +4,27 @@
       <p>{{ getDate }}</p>
       <h1 class="text-2xl font-bold">{{ getTime }}</h1>
     </div>
-    <div class="flex w-full">
-      <div class="w-full rounded-l-lg bg-green-300 py-4 px-12 text-center">
+    <div class="flex w-full gap-2 lg:gap-0">
+      <div
+        class="w-full rounded-lg bg-green-300 py-4 text-center lg:rounded-l-lg lg:px-12"
+      >
         <span class="text-3xl font-bold">8</span>
         <h1 class="font-medium">Pasien Kondisi Normal</h1>
       </div>
-      <div class="w-full bg-yellow-300 py-4 px-12 text-center">
+      <div
+        class="w-full rounded-lg bg-yellow-300 py-4 text-center lg:rounded-none lg:px-12"
+      >
         <span class="text-3xl font-bold">8</span>
         <h1 class="font-medium">Pasien Kondisi Normal</h1>
       </div>
-      <div class="w-full rounded-r-lg bg-red-300 py-4 px-12 text-center">
+      <div
+        class="w-full rounded-lg bg-red-300 py-4 text-center lg:rounded-r-lg lg:px-12"
+      >
         <span class="text-3xl font-bold">8</span>
         <h1 class="font-medium">Pasien Kondisi Normal</h1>
       </div>
     </div>
-    <div class="grid grid-cols-4 gap-4">
+    <div class="flex flex-col gap-4 lg:grid lg:grid-cols-4">
       <Card
         v-for="(item, index) in data"
         :key="`${item.pasien}-${index}`"
@@ -41,7 +47,7 @@
 <script>
 import Card from "@/components/Card/Card.vue";
 import { data } from "./app/constant";
-import getFormatTimer from "@/app/utils";
+import { getFormatTimer } from "@/app/utils";
 
 export default {
   name: "dashboard-page",
@@ -62,6 +68,10 @@ export default {
     },
   },
   created() {
+    const auth = JSON.parse(localStorage.getItem("auth"));
+    if (!auth) {
+      this.$router.push("/");
+    }
     setInterval(() => {
       this.date = getFormatTimer()[0];
       this.time = getFormatTimer()[1];

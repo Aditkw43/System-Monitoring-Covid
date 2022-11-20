@@ -1,29 +1,33 @@
 <template>
   <div
     :class="[
-      'flex h-[100vh] w-[400px] gap-4 text-white transition-margin duration-500 ease-in-out',
-      isActive ? '' : '-ml-[270px]',
+      'flex h-[100vh] w-full gap-4 text-white transition-margin duration-500 ease-in-out lg:relative lg:w-[400px]',
+      isActive ? 'fixed' : 'absolute -ml-[380px] lg:-ml-[265px]',
     ]"
   >
-    <div class="flex h-full w-10/12 flex-col justify-between bg-sapphire pb-6">
-      <div class="center flex h-4/6 flex-col justify-around">
+    <div
+      class="flex h-full w-full flex-col items-center justify-between bg-sapphire p-0 lg:w-10/12 lg:pb-6"
+    >
+      <div
+        class="center mt-8 flex h-full flex-col justify-around lg:m-0 lg:h-4/6"
+      >
         <div class="mt-2 text-2xl">
           <h1 class="mb-2 text-center font-semibold">
             Patient Vital Sign Monitoring
           </h1>
           <hr class="m-auto w-6/12" />
         </div>
-        <div class="flex flex-col gap-4 px-11 text-center">
+        <div class="flex flex-col gap-4 text-center">
           <div
-            class="flex items-center justify-center rounded-full bg-gray-300 py-8 shadow-xl"
+            class="m-auto flex w-6/12 items-center justify-center rounded-full bg-gray-300 py-8 shadow-xl lg:w-8/12"
           >
-            <PersonIcon width="120" height="120" />
+            <PersonIcon width="100" height="100" />
           </div>
           <h1 class="text-4xl">Jhon Doe</h1>
           <p class="text-xl">Doctor</p>
         </div>
-        <div class="">
-          <ul class="flex flex-col gap-4 text-xl font-semibold">
+        <div>
+          <ul class="flex flex-col justify-center gap-4 text-xl font-semibold">
             <li
               v-for="(item, index) in menu"
               :key="index"
@@ -36,7 +40,7 @@
                 width="30"
                 height="30"
                 fill="#fff"
-                :class="[{ 'absolute right-2': !isActive }]"
+                :class="[{ 'right-2 lg:absolute': !isActive }]"
               />
               <span>{{ item.name }}</span>
             </li>
@@ -46,27 +50,34 @@
 
       <div
         class="relative flex cursor-pointer gap-8 py-2 px-4 font-semibold hover:bg-black/30"
+        @click="logout()"
       >
         <logoutIcon
           width="30"
           height="30"
-          :class="[{ 'absolute right-2 top-1': !isActive }]"
+          :class="[{ 'right-2 top-1 lg:absolute': !isActive }]"
           fill="#fff"
         />
         <span>Log Out</span>
       </div>
     </div>
-    <div @click="handleClickNav()" class="mt-4 cursor-pointer space-y-2">
-      <div class="h-0.5 w-10 bg-gray-600"></div>
+    <div
+      @click="handleClickNav()"
+      :class="[
+        'fixed top-0 mt-4 cursor-pointer space-y-2 lg:static',
+        isActive ? 'right-2' : 'left-10 lg:-right-12',
+      ]"
+    >
+      <div class="h-0.5 w-10 bg-black lg:bg-gray-600"></div>
       <div
         :class="[
-          'transition-slowest ease h-0.5 transform bg-gray-600 transition-width duration-1000',
+          'transition-slowest ease h-0.5 transform bg-black transition-width duration-1000 lg:bg-gray-600',
           isActive ? 'w-6' : 'w-10',
         ]"
       ></div>
       <div
         :class="[
-          'transition-slowest ease h-0.5 transform bg-gray-600 transition-width duration-1000',
+          'transition-slowest ease h-0.5 transform bg-black transition-width duration-1000 lg:bg-gray-600',
           isActive ? 'w-3' : 'w-10',
         ]"
       ></div>
@@ -90,7 +101,7 @@ export default {
   data() {
     return {
       menu,
-      isActive: true,
+      isActive: false,
     };
   },
   methods: {
@@ -107,6 +118,10 @@ export default {
           document.querySelector(`#list-${i}`).classList.remove("bg-black/30");
         }
       }
+    },
+    logout() {
+      localStorage.clear("token");
+      this.$router.push("/");
     },
   },
 };

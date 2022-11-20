@@ -1,27 +1,55 @@
 <template>
-  <div class="m-auto flex w-8/12 max-w-[450px] flex-col gap-10">
+  <div class="m-auto flex flex-col gap-10">
     <div
       class="flex items-center text-center text-[48px] font-semibold text-indigo"
     >
-      <chevronIcon width="30" height="30" position="left" @click="toLogin()" />
+      <chevronIcon
+        class="invisible lg:visible"
+        width="30"
+        height="30"
+        position="left"
+        @click="toLogin()"
+      />
       <h1 class="w-full">REGISTER</h1>
     </div>
     <div class="flex flex-col gap-4">
-      <Input :useIcon="true" placeholder="Username">
+      <Input
+        :useIcon="true"
+        name="username"
+        placeholder="Username"
+        @input="(e) => handleInput(e)"
+      >
         <PersonIcon width="30" height="30" />
       </Input>
-      <Input :useIcon="true" placeholder="Nomor Register">
+      <Input
+        :useIcon="true"
+        name="nomor register"
+        placeholder="Nomor Register"
+        @input="(e) => handleInput(e)"
+      >
         <PenIcon width="30" height="30" />
       </Input>
-      <Input :useIcon="true" placeholder="Password">
+      <Input
+        :useIcon="true"
+        name="password"
+        placeholder="Password"
+        typeInput="password"
+        @input="(e) => handleInput(e)"
+      >
         <LockIcon width="30" height="30" />
       </Input>
-      <Input :useIcon="true" placeholder="Confirm Password">
+      <Input
+        :useIcon="true"
+        name="confirm password"
+        placeholder="Confirm Password"
+        typeInput="password"
+        @input="(e) => handleInput(e)"
+      >
         <approvedIcon width="30" height="30" />
       </Input>
     </div>
-    <div class="flex justify-center">
-      <Button text="Sign Up" type="primary" @click="handleClick(e)" />
+    <div class="lg:flex lg:justify-center">
+      <Button text="Sign Up" type="primary" @click="signUp()" />
     </div>
   </div>
 </template>
@@ -35,6 +63,8 @@ import PenIcon from "@/assets/svg/pen-icon.vue";
 import Button from "@/components/Button/Button.vue";
 import { mapGetters, mapMutations } from "vuex";
 import chevronIcon from "@/assets/svg/chevron-icon.vue";
+import { formated } from "@/app/utils";
+
 export default {
   name: "register-component",
   components: {
@@ -47,15 +77,32 @@ export default {
     chevronIcon,
   },
   data() {
-    return {};
+    return {
+      data: {
+        username: "",
+        password: "",
+        nomorRegister: 0,
+        confirmPassword: "",
+      },
+    };
   },
   computed: {
     ...mapGetters(["AUTH"]),
   },
   methods: {
     ...mapMutations(["toLogin"]),
-    handleClick(e) {
-      console.log(e);
+    signUp() {
+      localStorage.setItem("token", JSON.stringify(this.data));
+      if (this.data.password === this.data.confirmPassword) {
+        alert("success");
+        return setTimeout(() => {
+          this.toLogin();
+        }, 1000);
+      }
+      return alert("password tidak cocok!");
+    },
+    handleInput(event) {
+      this.data[formated(event.target.name)] = event.target.value;
     },
   },
 };

@@ -1,6 +1,6 @@
 import { MONTHS, DAYS } from '@/app/constant'
 
-const getFormatTimer = () => {
+export const getFormatTimer = () => {
   const fullTime = new Date()
 
   const day = fullTime.getDay()
@@ -17,4 +17,18 @@ const getFormatTimer = () => {
   ]
 }
 
-export default getFormatTimer
+// from letter space to camelCase
+export const formated = (value) => {
+  const result = value.split(" ");
+  if (result.length > 1) {
+    return result
+      .map((item, index) => {
+        return index !== 0
+          ? item[0].toUpperCase() + item.replace(item[0], "")
+          : item;
+      })
+      .join("");
+  } else {
+    return result.join();
+  }
+}
