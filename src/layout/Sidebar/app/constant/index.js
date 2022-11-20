@@ -2,16 +2,13 @@ export const menu = [
   {
     name: 'Dashboard',
     icon: 'HomeIcon',
-    isActive: true
   },
   {
-    name: 'Dashboard',
+    name: 'Profil',
     icon: 'HomeIcon',
-    isActive: false
   },
   {
-    name: 'Dashboard',
+    name: 'setting',
     icon: 'HomeIcon',
-    isActive: false
-  }
+  },
 ]

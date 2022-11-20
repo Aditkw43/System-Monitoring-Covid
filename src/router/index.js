@@ -1,9 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const Home = () => import(/* webpackChunkName: "Home" */ "@/pages/Home/Home.vue")
+const Container = () => import(/* webpackChunkName: "Container" */ '@/layout/Container/Container.vue')
 const Dashboard = () => import(/* webpackChunkName: "Dashboard" */ '@/pages/Dashboard/Dashboard.vue')
-const sidebar = () => import(/* webpackChunkName: "Dashboard" */ '@/layout/Sidebar/Sidebar.vue')
-
 const routes = [
   {
     path: '/',
@@ -13,8 +12,12 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard-page',
-    component: Dashboard,
+    component: Container,
     children: [
+      {
+        path: '/dashboard',
+        component: Dashboard
+      },
       {
         path: 'setting',
         component: Home

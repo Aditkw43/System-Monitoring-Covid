@@ -15,7 +15,11 @@ module.exports = {
     backgroundImage: {
       docktorIllustration: "url('/src/assets/images/docktor-illustration.png')",
       nurseIllustration: "url('/src/assets/images/nurse-illustration.png')"
-    }
+    },
+    transitionProperty: {
+      'width': 'width',
+      'margin': 'margin'
+    },
   },
   plugins: [require('prettier-plugin-tailwindcss')],
 }
