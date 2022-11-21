@@ -1,5 +1,8 @@
 <template>
-  <div :class="['rounded-xl text-center text-white', decideBackground()[0]]">
+  <div
+    @click="$emit('click')"
+    :class="['rounded-xl text-center text-white', decideBackground()[0]]"
+  >
     <div :class="['rounded-t-xl py-4', decideBackground()[1]]">
       <h1>Pasien {{ patient }}</h1>
     </div>

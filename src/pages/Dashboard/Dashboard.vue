@@ -1,5 +1,17 @@
 <template>
+  <Modal
+    v-if="showModal"
+    :title="dataOnModal.title"
+    :description="dataOnModal.description"
+    :bgTitle="dataOnModal.color"
+    :useModalConfirmation="true"
+    negative="Tidak"
+    positive="Iya"
+    @onNegative="onNegative()"
+    @onPositive="onPositive()"
+  />
   <div class="flex w-full flex-col gap-4">
+    <Alert :show="showModal" />
     <div class="flex flex-col items-end">
       <p>{{ getDate }}</p>
       <h1 class="text-2xl font-bold">{{ getTime }}</h1>
@@ -39,6 +51,7 @@
         :type="item.status"
         :name="item.name"
         :registation="item.registration"
+        @click="onClickCard(item.status)"
       />
     </div>
   </div>
@@ -48,15 +61,36 @@
 import Card from "@/components/Card/Card.vue";
 import { data } from "./app/constant";
 import { getFormatTimer } from "@/app/utils";
+import Alert from "@/components/Alert/Alert.vue";
+import Modal from "@/components/Modal/Modal.vue";
 
 export default {
   name: "dashboard-page",
-  components: { Card },
+  components: { Card, Alert, Modal },
   data() {
     return {
       data,
       date: "",
       time: "",
+      status: "warning",
+      dataOnModal: {},
+      showModal: false,
+      announcement: [
+        {
+          type: "danger",
+          title: "Konfirmasi Tindakan Langsung",
+          description:
+            "Apakah Pasien 1 akan segera dilakukan tindakan langsung?",
+          color: "#7B0D0D",
+        },
+        {
+          type: "warning",
+          title: "Konfirmasi Tindakan Langsung",
+          description:
+            "Apakah Pasien 1 akan segera dilakukan tindakan langsung?",
+          color: "#958F00",
+        },
+      ],
     };
   },
   computed: {
@@ -76,6 +110,25 @@ export default {
       this.date = getFormatTimer()[0];
       this.time = getFormatTimer()[1];
     }, 1000);
+  },
+  methods: {
+    statusPatient() {
+      this.dataOnModal = this.announcement.find(
+        (item) => item.type === this.status
+      );
+    },
+    onClickCard(value) {
+      console.log("msuk", value);
+      this.status = value;
+      this.statusPatient();
+      this.showModal = true;
+    },
+    onNegative() {
+      this.showModal = false;
+    },
+    onPositive() {
+      this.showModal = false;
+    },
   },
   destroyed() {
     clearInterval();
