@@ -1,88 +1,48 @@
 export const data = [
   {
     patient: 1,
-    heart: 9,
-    lungs: 98,
-    oxygen: 30,
-    blood: 29,
-    temperature: 37,
     name: 'Aditya Kahfi',
     registration: 123919238,
-    status: 'danger',
+    status: 'normal',
   },
   {
     patient: 1,
-    heart: 92,
-    lungs: 98,
-    oxygen: 30,
-    blood: 29,
-    temperature: 37,
-    name: 'Aditya Kahfi',
-    registration: 123919238,
-    status: 'warning'
-  },
-  {
-    patient: 1,
-    heart: 92,
-    lungs: 98,
-    oxygen: 30,
-    blood: 29,
-    temperature: 37,
     name: 'Aditya Kahfi',
     registration: 123919238,
     status: 'normal'
   },
   {
     patient: 1,
-    heart: 92,
-    lungs: 98,
-    oxygen: 30,
-    blood: 29,
-    temperature: 37,
     name: 'Aditya Kahfi',
     registration: 123919238,
     status: 'normal'
   },
   {
     patient: 1,
-    heart: 92,
-    lungs: 98,
-    oxygen: 30,
-    blood: 29,
-    temperature: 37,
     name: 'Aditya Kahfi',
     registration: 123919238,
     status: 'normal'
   },
   {
     patient: 1,
-    heart: 92,
-    lungs: 98,
-    oxygen: 30,
-    blood: 29,
-    temperature: 37,
     name: 'Aditya Kahfi',
     registration: 123919238,
     status: 'normal'
   },
   {
     patient: 1,
-    heart: 92,
-    lungs: 98,
-    oxygen: 30,
-    blood: 29,
-    temperature: 37,
     name: 'Aditya Kahfi',
     registration: 123919238,
     status: 'normal'
   },
   {
     patient: 1,
-    heart: 92,
-    lungs: 98,
-    oxygen: 30,
-    blood: 29,
-    temperature: 37,
+    name: 'Aditya Kahfi',
+    registration: 123919238,
+    status: 'normal'
+  },
+  {
+    patient: 1,
     name: 'Aditya Kahfi',
     registration: 123919238,
     status: 'normal'

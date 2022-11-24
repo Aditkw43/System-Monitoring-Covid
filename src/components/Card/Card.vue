@@ -1,7 +1,11 @@
 <template>
   <div
     @click="$emit('click')"
-    :class="['rounded-xl text-center text-white', decideBackground()[0]]"
+    :id="id"
+    :class="[
+      'cursor-pointer rounded-xl text-center text-white',
+      decideBackground()[0],
+    ]"
   >
     <div :class="['rounded-t-xl py-4', decideBackground()[1]]">
       <h1>Pasien {{ patient }}</h1>
@@ -21,11 +25,6 @@
         :height="height"
         class="col-start-1 row-start-2 m-auto"
       />
-      <HeartIcon
-        :width="width"
-        :height="height"
-        class="col-start-1 row-start-3 m-auto"
-      />
       <OxygenIcon
         :width="width"
         :height="height"
@@ -34,42 +33,40 @@
       <BloodPressureIcon
         :width="width"
         :height="height"
-        class="col-start-3 row-start-2 m-auto"
+        class="col-start-1 row-start-3 m-auto"
       />
       <TemperatureIcon
         :width="width"
         :height="height"
-        class="col-start-3 row-start-3 m-auto"
+        class="col-start-3 row-start-2 m-auto"
       />
       <!-- right -->
       <span
-        class="col-start-2 row-start-1 flex items-center justify-start text-2xl font-semibold text-black"
+        class="col-start-2 row-start-1 flex items-center justify-start text-xl font-semibold text-black"
       >
-        {{ heart }}
+        {{ heart }} <span class="ml-1 text-sm">beats</span>
       </span>
       <span
-        class="col-start-2 row-start-2 flex items-center justify-start text-2xl font-semibold text-black"
+        class="col-start-2 row-start-2 flex items-center justify-start text-xl font-semibold text-black"
       >
-        {{ lungs }} </span
-      ><span
-        class="col-start-2 row-start-3 flex items-center justify-start text-2xl font-semibold text-black"
+        {{ lungs }} <span class="ml-1 text-sm">breaths</span>
+      </span>
+      <span
+        class="col-span-3 col-start-2 row-start-3 flex items-center justify-start text-lg font-semibold text-black"
       >
-        {{ heart }}
+        {{ sistole }} / {{ diastole }} <span class="ml-1 text-sm">mmHG</span>
       </span>
 
       <!-- left -->
       <span
-        class="flex items-center justify-start text-2xl font-semibold text-black"
+        class="flex items-center justify-start text-xl font-semibold text-black"
       >
-        {{ oxygen }} </span
-      ><span
-        class="flex items-center justify-start text-2xl font-semibold text-black"
+        {{ oxygen }} <span class="ml-1 text-sm">%</span>
+      </span>
+      <span
+        class="flex items-center justify-start text-xl font-semibold text-black"
       >
-        {{ blood }} </span
-      ><span
-        class="flex items-center justify-start text-2xl font-semibold text-black"
-      >
-        {{ temperature }}
+        {{ temperature }} <span>&#8451;</span>
       </span>
     </div>
   </div>
@@ -92,6 +89,10 @@ export default {
     TemperatureIcon,
   },
   props: {
+    id: {
+      type: String,
+      default: "",
+    },
     type: {
       type: String,
       default: "normal",
@@ -116,7 +117,11 @@ export default {
       type: Number,
       default: 0,
     },
-    blood: {
+    sistole: {
+      type: Number,
+      default: 0,
+    },
+    diastole: {
       type: Number,
       default: 0,
     },

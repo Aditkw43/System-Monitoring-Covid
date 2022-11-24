@@ -1,34 +1,45 @@
 <template>
   <div
-    class="absolute top-[25%] right-[40%] w-3/12 rounded-md bg-white pb-4 font-semibold"
+    v-if="openModal"
+    class="fixed top-0 left-0 h-screen w-full bg-[rgb(0,0,0,0.3)]"
   >
-    <div class="flex flex-col gap-4">
-      <div :class="['rounded-t-md py-4 px-6 text-white', `bg-[${bgTitle}]`]">
-        <h1>{{ title }}</h1>
-      </div>
-      <div class="px-6 font-semibold text-gray-800">
-        <p>{{ description }}</p>
-      </div>
-
-      <div v-if="useFooter" class="border-t-2 p-4">
-        <slot></slot>
-      </div>
+    <div :class="['fixed right-0 w-full']">
       <div
-        v-if="useModalConfirmation"
-        class="flex justify-end gap-4 pr-4 font-semibold text-white"
+        :class="[
+          'absolute top-40 right-8 w-10/12 rounded-md bg-white pb-4 font-semibold md:right-16 lg:right-[40%] lg:w-3/12',
+        ]"
       >
-        <Button
-          :text="negative"
-          :resetClass="true"
-          customClass="py-2 px-8 bg-red-600 rounded-md"
-          @click="$emit('onNegative')"
-        />
-        <Button
-          :text="positive"
-          :resetClass="true"
-          customClass="py-2 px-8 bg-green-600 rounded-md"
-          @click="$emit('onPositive')"
-        />
+        <div class="flex flex-col gap-4">
+          <div
+            :class="['rounded-t-md py-4 px-6 text-white', `bg-[${bgTitle}]`]"
+          >
+            <h1>{{ title }}</h1>
+          </div>
+          <div class="px-6 text-sm font-semibold text-gray-800 lg:text-lg">
+            <p>{{ description }}</p>
+          </div>
+
+          <div v-if="useFooter" class="border-t-2 p-4">
+            <slot></slot>
+          </div>
+          <div
+            v-if="useModalConfirmation"
+            class="flex justify-end gap-4 pr-4 font-semibold text-white"
+          >
+            <Button
+              :text="negative"
+              :resetClass="true"
+              customClass="py-2 px-8 bg-red-600 rounded-md cursor-pointer"
+              @click="$emit('onNegative')"
+            />
+            <Button
+              :text="positive"
+              :resetClass="true"
+              customClass="py-2 px-8 bg-green-600 rounded-md cursor-pointer"
+              @click="(e) => $emit('onPositive', e)"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -70,6 +81,14 @@ export default {
     positive: {
       type: String,
       default: "Oke",
+    },
+    openModal: {
+      type: Boolean,
+      default: true,
+    },
+    className: {
+      type: String,
+      defaut: "",
     },
   },
 };

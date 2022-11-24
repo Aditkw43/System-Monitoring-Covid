@@ -1,12 +1,12 @@
 <template>
   <div
     :class="[
-      'flex h-[100vh] w-full gap-4 text-white transition-margin duration-500 ease-in-out lg:relative lg:w-[400px]',
-      isActive ? 'fixed' : 'absolute -ml-[380px] lg:-ml-[265px]',
+      'flex w-full fixed gap-4 lg:h-auto h-full text-white transition-margin delay-200 duration-500 ease-in-out lg:relative lg:w-[400px]',
+      isActive ? '' : '-ml-[2000px] lg:-ml-[265px]',
     ]"
   >
     <div
-      class="flex h-full w-full flex-col items-center justify-between bg-sapphire p-0 lg:w-10/12 lg:pb-6"
+      class="flex h-full w-full  flex-col items-center justify-between bg-sapphire p-0 lg:w-10/12 lg:pb-6"
     >
       <div
         class="center mt-8 flex h-full flex-col justify-around lg:m-0 lg:h-4/6"

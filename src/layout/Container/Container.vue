@@ -1,10 +1,8 @@
 <template>
   <div class="flex gap-4">
-    <Sidebar />
+    <Sidebar/>
     <main class="w-full p-4 lg:p-10">
-      <transition name="fade">
         <router-view></router-view>
-      </transition>
     </main>
   </div>
 </template>

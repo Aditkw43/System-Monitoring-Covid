@@ -13,7 +13,7 @@ export const getFormatTimer = () => {
 
   return [
     `${DAYS[day]}, ${date} ${MONTHS[month]} ${year}`,
-    `${hour} : ${menutes} : ${second}`
+    `${hour >=10 ? hour : '0' + hour} : ${menutes >= 10 ? menutes : '0' + menutes} : ${second}`
   ]
 }
 

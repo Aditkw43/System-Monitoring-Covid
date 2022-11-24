@@ -1,7 +1,7 @@
 <template>
   <div>
     <svg
-      :width="wifth"
+      :width="width"
       :height="height"
       fill="none"
       viewBox="0 0 39 39"
