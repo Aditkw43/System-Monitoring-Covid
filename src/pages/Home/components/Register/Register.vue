@@ -23,6 +23,14 @@
       </Input>
       <Input
         :useIcon="true"
+        name="name"
+        placeholder="name"
+        @input="(e) => handleInput(e)"
+      >
+        <p>Abc</p>
+      </Input>
+      <Input
+        :useIcon="true"
         name="nomor register"
         placeholder="Nomor Register"
         @input="(e) => handleInput(e)"
@@ -58,6 +66,7 @@
 import Input from "@/components/Input/Input.vue";
 import LockIcon from "@/assets/svg/lock-icon.vue";
 import PersonIcon from "@/assets/svg/person-icon.vue";
+import NameIcon from "@/assets/svg/name-icon.vue";
 import approvedIcon from "@/assets/svg/approved-icon.vue";
 import PenIcon from "@/assets/svg/pen-icon.vue";
 import Button from "@/components/Button/Button.vue";
@@ -70,6 +79,7 @@ export default {
   components: {
     Input,
     PersonIcon,
+    NameIcon,
     LockIcon,
     Button,
     PenIcon,
@@ -81,6 +91,7 @@ export default {
       data: {
         username: "",
         password: "",
+        name: "",
         nomorRegister: 0,
         confirmPassword: "",
       },

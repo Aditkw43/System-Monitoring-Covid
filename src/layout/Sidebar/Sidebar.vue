@@ -23,8 +23,8 @@
           >
             <PersonIcon width="100" height="100" />
           </div>
-          <h1 class="text-4xl">Jhon Doe</h1>
-          <p class="text-xl">Doctor</p>
+          <h1 class="text-4xl">{{nama}}</h1>
+          <p class="text-xl">Tenaga Medis</p>
         </div>
         <div>
           <ul class="flex flex-col justify-center gap-4 text-xl font-semibold">
@@ -102,6 +102,7 @@ export default {
     return {
       menu,
       isActive: false,
+      nama: "",
     };
   },
   methods: {
@@ -120,10 +121,14 @@ export default {
       }
     },
     logout() {
-      localStorage.clear("token");
+      // localStorage.clear("token");
       this.$router.push("/");
     },
   },
+  created(){
+    const data = JSON.parse(localStorage.getItem("token"));
+    this.nama = data["name"]
+  }
 };
 </script>
 
