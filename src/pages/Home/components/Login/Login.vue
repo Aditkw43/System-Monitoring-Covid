@@ -1,5 +1,10 @@
 <template>
   <div class="m-auto flex flex-col gap-10">
+    <Alert
+        :show="showAlert"
+        :text="message"
+        @click="closeAlert"
+      />
     <div class="text-center text-[48px] font-semibold text-indigo">
       <h1>USER LOGIN</h1>
     </div>
@@ -45,6 +50,7 @@ import LockIcon from "@/assets/svg/lock-icon.vue";
 import PersonIcon from "@/assets/svg/person-icon.vue";
 import Button from "@/components/Button/Button.vue";
 import { mapMutations } from "vuex";
+import Alert from "@/components/Alert/Alert.vue";
 
 export default {
   name: "login-component",
@@ -53,13 +59,16 @@ export default {
     PersonIcon,
     LockIcon,
     Button,
-  },
+    Alert
+},
   data() {
     return {
       data: {
         username: "",
         password: "",
       },
+      message: '',
+      showAlert: false
     };
   },
   methods: {
@@ -70,7 +79,8 @@ export default {
         localStorage.setItem("auth", "true");
         this.$router.push("/dashboard");
       } else {
-        alert(auth);
+        this.message = auth
+        this.showAlert = true
       }
     },
     handleInput(event) {
@@ -78,20 +88,24 @@ export default {
     },
     authentication(username, password) {
       const data = JSON.parse(localStorage.getItem("token"));
-      console.log(data);
       if (data) {
         if (data.username === username && data.password === password) {
           return true;
         }
         if (data.username === username && data.password !== password) {
+          this.showAlert = true
           return "password salah silahkan coba lagi!";
         }
         if (data.username !== username && data.password === password) {
+          this.showAlert = true
           return "username salah silahkan coba lagi!";
         }
       }
       return "username dan password salah silahkan registrasi terlebih dahulu!";
     },
+    closeAlert() {
+      this.showAlert = false
+    }
   },
 };
 </script>

@@ -2,7 +2,7 @@
   <Modal
     :openModal="showModal"
     :title="announcement[indexStatus].title"
-    :description="decideDescription(announcement[indexStatus].status)"
+    :description="decideDescription()"
     :bgTitle="announcement[indexStatus].color"
     :useModalConfirmation="true"
     negative="Tidak"
@@ -11,7 +11,7 @@
     @onPositive="(e) => onPositive(e)"
   />
   <div class="flex w-full flex-col gap-4">
-    <Alert :show="showAlert" :data="patientWithDanger" />
+    <Alert :show="showAlert" :text="decideDescAlert()"/>
     <div class="flex flex-col items-end">
       <p>{{ getDate }}</p>
       <h1 class="text-2xl font-bold">{{ getTime }}</h1>
@@ -85,7 +85,7 @@ export default {
       modalList: [],
       showAlert: false,
       patientNormal: [],
-      patientWarnig: [],
+      patientWarning: [],
       patientDanger: [],
       normalHeartRate: [40, 60],
       dangerHeartRate: [50, 40],
@@ -236,7 +236,7 @@ export default {
       return this.patientNormal.length;
     },
     getPatientWarning() {
-      return this.patientWarnig.length;
+      return this.patientWarning.length;
     },
     getPatientDanger() {
       return this.patientDanger.length;
@@ -359,7 +359,7 @@ export default {
     onNegative() {
       this.showModal = false;
     },
-    onPositive(e) {
+    onPositive() {
       this.showModal = false;
       this.dataPatient
         .filter((item) => item.patient === this.patientAction)
@@ -368,16 +368,24 @@ export default {
             item.patient === this.patientAction &&
             item.status === "warning" &&
             this.patientStatusByIndex === "warning"
+            
           ) {
             item.status = "normal";
             this.countFiveMinutes = -9999;
+            this.patientNormal.push(item);
+            this.patientWarning = this.patientWarning.filter(
+              (data) => data !== item.patient
+            );
+            this.patientWithDanger = this.patientWithDanger.filter(data => data !== item.patient)
+            if(!Boolean(this.patientWithDanger.length)) this.showAlert = false
+
           } else if (
             item.patient === this.patientAction &&
-            item.status !== "warning" &&
-            this.patientStatusByIndex !== "warning"
+            item.status === "danger" &&
+            this.patientStatusByIndex === "danger"
           ) {
             item.status = "warning";
-            this.patientWarnig.push(item);
+            this.patientWarning.push(item.patient);
             this.patientDanger = this.patientDanger.filter(
               (data) => data !== item.patient
             );
@@ -387,11 +395,16 @@ export default {
     randomValue(range, start) {
       return Math.floor(Math.random() * range + start);
     },
-    decideDescription(status) {
-      return status === "warning"
-        ? `Apakah Pasien ${this.patientAction} akan segera dilakukan tindakan langsung?`
-        : `Apakah Pasien ${this.patientAction} akan segera dilakukan tindakan langsung?`;
+    decideDescription() {
+      const message = this.dataPatient.find(item => item.patient === this.patientAction && item.status === 'warning')
+      if(message) {
+        return `Apakah Pasien ${this.patientAction} telah selesai dilakukan tindakan langsung?`
+      }
+      return `Apakah Pasien ${this.patientAction} akan segera dilakukan tindakan langsung?`
     },
+    decideDescAlert() {
+      return `Pasien ${ this.patientWithDanger.map((item) => item).join(", ") } Perlu Tindakan!`
+    }
   },
   destroyed() {
     clearInterval();

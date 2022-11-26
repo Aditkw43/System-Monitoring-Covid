@@ -1,5 +1,10 @@
 <template>
   <div class="m-auto flex flex-col gap-10">
+    <Alert
+      :show="showAlert"
+      :text="message"
+      @click="closeAlert"
+    />
     <div
       class="flex items-center text-center text-[48px] font-semibold text-indigo"
     >
@@ -73,6 +78,7 @@ import Button from "@/components/Button/Button.vue";
 import { mapGetters, mapMutations } from "vuex";
 import chevronIcon from "@/assets/svg/chevron-icon.vue";
 import { formated } from "@/app/utils";
+import Alert from "@/components/Alert/Alert.vue";
 
 export default {
   name: "register-component",
@@ -85,7 +91,8 @@ export default {
     PenIcon,
     approvedIcon,
     chevronIcon,
-  },
+    Alert
+},
   data() {
     return {
       data: {
@@ -95,6 +102,8 @@ export default {
         nomorRegister: 0,
         confirmPassword: "",
       },
+      message: '',
+      showAlert: false
     };
   },
   computed: {
@@ -105,16 +114,22 @@ export default {
     signUp() {
       localStorage.setItem("token", JSON.stringify(this.data));
       if (this.data.password === this.data.confirmPassword) {
-        alert("success");
+        this.message = 'success'
+        this.showAlert = true
         return setTimeout(() => {
           this.toLogin();
         }, 1000);
       }
-      return alert("password tidak cocok!");
+      this.message = "Confirmasi password tidak cocok!"
+      this.showAlert = true
+      
     },
     handleInput(event) {
       this.data[formated(event.target.name)] = event.target.value;
     },
+    closeAlert() {
+      this.showAlert = false
+    }
   },
 };
 </script>
