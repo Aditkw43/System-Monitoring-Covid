@@ -20,5 +20,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### HEROKU STACK
 heroku stack:set heroku-20
-
-testing
+testing 1
